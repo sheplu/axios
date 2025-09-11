@@ -51,7 +51,7 @@
     "test:build:version": "node ./bin/check-build-version.js",
     "start": "node ./sandbox/server.js",
     "preversion": "gulp version",
-    "version": "npm run build && git add dist && git add package.json",
+    "version": "npm run build && git add package.json",
     "prepublishOnly": "npm run test:build:version",
     "postpublish": "git push && git push --tags",
     "build": "gulp clear && cross-env NODE_ENV=production rollup -c -m",
@@ -212,7 +212,7 @@
     "hooks": {
       "before:init": "npm test",
       "after:bump": "gulp version --bump ${version} && npm run build && npm run test:build:version",
-      "before:release": "npm run release:changelog:fix",
+      "before:release": "npm run release:changelog:fix && git add ./dist && git add ./package-lock.json",
       "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
     }
   },
